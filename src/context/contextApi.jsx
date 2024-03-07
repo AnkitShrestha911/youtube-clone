@@ -143,9 +143,9 @@ export const AppContext = (props) => {
 
     async function fetchSelectedCategoryData(type, query) {
         setLoading(true);
+
         try {
             const { items } = await fetchDataFromApi(`search?q=${query}&part=snippet,id&maxResults=50&type=video&safeSearch=strict`);
-
 
             if (type === 'home') {
                 await Promise.all(items?.map(async (video) => {
@@ -177,7 +177,11 @@ export const AppContext = (props) => {
             }
 
         } catch (err) {
-            console.log('error in fetchSelectedCategoryData')
+
+            if (err.response.status === 403) {
+                console.clear();
+            }
+
             setHomeError(err)
         }
 
@@ -185,9 +189,8 @@ export const AppContext = (props) => {
     }
 
     async function fetchRelatedVideoDetail(videoId) {
+
         setLoading(true);
-
-
         const { data, error } = await fetchDataFromRapidApi(`related?id=${videoId}`);
 
         if (data?.length > 0) {
@@ -223,7 +226,11 @@ export const AppContext = (props) => {
             })
 
         } catch (err) {
-            console.log(err)
+            if (err.response.status === 403) {
+                console.clear();
+            }
+            setHomeError(err)
+
         }
 
 
@@ -234,13 +241,18 @@ export const AppContext = (props) => {
 
     async function fetchVideoCommentDetail(videoId) {
         setLoading(true);
+
         try {
             const response = await fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${videoId}&maxResults=50&key=${import.meta.env.VITE_YOUTUBE_DATA_V3_API_KEY}`);
             const { items } = await response.json();
             setCommentDetails(items);
 
+            if (response.status === 403) {
+                console.clear();
+            }
+
         } catch (err) {
-            console.log(err);
+            console.log('commentError')
         }
 
         setLoading(false)

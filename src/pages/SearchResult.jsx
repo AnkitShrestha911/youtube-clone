@@ -5,7 +5,7 @@ import Loader from "../components/Loader";
 import { useParams, Link } from "react-router-dom";
 
 const SearchResult = () => {
-  const { loading, searchText, searchCardResult, fetchSelectedCategoryData } = useContext(Context);
+  const { loading, searchText, searchCardResult, fetchSelectedCategoryData, HomeError } = useContext(Context);
   const { searchQuery } = useParams();
 
 
@@ -13,9 +13,6 @@ const SearchResult = () => {
   useEffect(() => {
     fetchSelectedCategoryData('search', searchQuery);
   }, [])
-
-
-
 
 
 
@@ -31,13 +28,22 @@ const SearchResult = () => {
             })}
 
             {
-              (!loading && searchCardResult.length === 0) &&
-              <div className="w-full  text-white flex flex-col">
-                <div className="mt-[10rem] w-full h-full text-center">
-                  <h1 className="text-4xl">Result not found for {searchQuery}</h1>
-                  <Link to={`/`} className="text-xl bg-gray-700 py-2 px-4 hover:bg-gray-600 rounded-md mt-10 inline-block">Go To Home</Link>
+              (HomeError?.response?.status === 403) ?
+                <div className="w-full  text-white flex flex-col">
+                  <div className="mt-[10rem] w-full h-full text-center">
+                    <h1 className="text-4xl">Something went wrong....</h1>
+                    <button onClick={() => logOut()} className="text-xl bg-gray-700 py-2 px-4 hover:bg-gray-600 rounded-md mt-10 inline-block">Logout</button>
+                  </div>
                 </div>
-              </div>
+                :
+                (!loading && searchCardResult.length === 0) ?
+                  <div className="w-full  text-white flex flex-col">
+                    <div className="mt-[10rem] w-full h-full text-center">
+                      <h1 className="text-4xl">Result not found for {searchQuery}</h1>
+                      <Link to={`/`} className="text-xl bg-gray-700 py-2 px-4 hover:bg-gray-600 rounded-md mt-10 inline-block">Go To Home</Link>
+                    </div>
+                  </div>
+                  : null
             }
 
           </div>
