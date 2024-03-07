@@ -20,7 +20,6 @@ const VideoCard = ({ video }) => {
     const getHeight = () => {
       setHeight(imgRef?.current?.offsetHeight);
     }
-
     window.addEventListener('resize', getHeight);
 
   }, [])
@@ -61,7 +60,7 @@ const VideoCard = ({ video }) => {
 
     }}>
       {/* part-1 */}
-      <div className={`w-full  ${height === 0 ? 'h-full' : `h-[${height}px]`} overflow-hidden rounded-lg  relative   border border-slate-800`} >
+      <div className={`w-full  ${height === 0 ? 'h-[249px]' : `h-[${height}px]`} overflow-hidden rounded-lg  relative   border border-slate-800`} >
 
         <img
           src={cardThumbnail}
