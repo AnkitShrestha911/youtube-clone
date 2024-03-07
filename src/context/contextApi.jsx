@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import { fetchDataFromApi, fetchDataFromRapidApi } from '../utlis/api'
 import { auth } from '../auth/firebase';
-import { signInWithRedirect, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
@@ -127,6 +127,19 @@ export const AppContext = (props) => {
         }
     }
 
+    async function logOut() {
+        try {
+            await signOut(auth);
+
+        } catch (err) {
+            console.log('error in signOut')
+        }
+
+        localStorage.removeItem('accessToken')
+        navigate('/')
+
+    }
+
 
 
     useEffect(() => {
@@ -189,7 +202,7 @@ export const AppContext = (props) => {
     }
 
     async function fetchRelatedVideoDetail(videoId) {
-
+        console.log('iamhere')
         setLoading(true);
         const { data, error } = await fetchDataFromRapidApi(`related?id=${videoId}`);
 
@@ -243,16 +256,16 @@ export const AppContext = (props) => {
         setLoading(true);
 
         try {
-            const response = await fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${videoId}&maxResults=50&key=${import.meta.env.VITE_YOUTUBE_DATA_V3_API_KEY}`);
-            const { items } = await response.json();
+            const items = await fetchDataFromApi(`commentThreads?part=snippet,replies&videoId=${videoId}&maxResults=50`);
+            console.log(items)
             setCommentDetails(items);
 
-            if (response.status === 403) {
+
+        } catch (err) {
+            if (err.response.status === 403) {
                 console.clear();
             }
 
-        } catch (err) {
-            console.log('commentError')
         }
 
         setLoading(false)
@@ -293,6 +306,7 @@ export const AppContext = (props) => {
                 readmore,
                 setReadMore,
                 HomeError,
+                logOut
 
 
             }}

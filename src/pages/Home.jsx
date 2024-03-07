@@ -2,25 +2,11 @@ import { useContext, useEffect } from "react";
 import VideoCard from "../components/VideoCard";
 import { Context } from "../context/contextApi";
 import Loader from "../components/Loader";
-import { auth } from "../auth/firebase";
-import { signOut } from "firebase/auth";
+
 
 const Home = () => {
-  const { loading, selectCategories, searchResults, fetchSelectedCategoryData, HomeError } = useContext(Context);
+  const { loading, selectCategories, searchResults, fetchSelectedCategoryData, HomeError, logOut } = useContext(Context);
 
-
-  async function logOut() {
-    try {
-      await signOut(auth);
-
-    } catch (err) {
-      console.log('error in signOut')
-    }
-
-    localStorage.removeItem('accessToken')
-    navigate('/')
-
-  }
 
   useEffect(() => {
     fetchSelectedCategoryData('home', selectCategories);

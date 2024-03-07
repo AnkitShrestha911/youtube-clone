@@ -57,7 +57,8 @@ const VideoPage = () => {
     suggestionError,
     readmore,
     setReadMore,
-    HomeError
+    HomeError,
+    logOut
 
 
   } = useContext(Context);

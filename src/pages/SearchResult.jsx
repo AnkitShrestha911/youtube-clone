@@ -5,9 +5,8 @@ import Loader from "../components/Loader";
 import { useParams, Link } from "react-router-dom";
 
 const SearchResult = () => {
-  const { loading, searchText, searchCardResult, fetchSelectedCategoryData, HomeError } = useContext(Context);
+  const { loading, searchText, searchCardResult, fetchSelectedCategoryData, HomeError, logOut } = useContext(Context);
   const { searchQuery } = useParams();
-
 
 
   useEffect(() => {
