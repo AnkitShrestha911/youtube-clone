@@ -164,7 +164,9 @@ const VideoPage = () => {
     }
     getDetails();
 
-  }, [])
+  }, [videoId?.id])
+
+
 
 
 
@@ -472,7 +474,7 @@ const VideoPage = () => {
                 <div className="w-full xl:w-auto mt-10 m  xl:hidden grid grid-cols-1 sm:grid-cols-2  gap-5 ">
                   {" "}
 
-                  {(suggestionError === undefined && relatedVideos.length > 0) &&
+                  {(relatedVideos.length > 0) &&
                     relatedVideos?.map((item, index) => {
                       if (item.type != 'video') return false;
                       return <VideoCard key={index} video={item} />;
@@ -512,7 +514,7 @@ const VideoPage = () => {
             {/* right part main */}
             <div className="w-[calc(100%-1000px)]  mt-16  xl:mt-0  hidden xl:block   ">
               {" "}
-              {(suggestionError === undefined && relatedVideos.length > 0) &&
+              {(relatedVideos.length > 0) &&
                 relatedVideos?.map((item, index) => {
                   if (item.type != 'video') return false;
                   return <SuggestionCard key={index} video={item} />;

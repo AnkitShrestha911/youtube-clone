@@ -144,7 +144,7 @@ export const AppContext = (props) => {
     async function fetchSelectedCategoryData(type, query) {
         setLoading(true);
         try {
-            const { items } = await fetchDataFromApi(`search?q=${query}&part=snippet,id&maxResults=50&type=video`);
+            const { items } = await fetchDataFromApi(`search?q=${query}&part=snippet,id&maxResults=50&type=video&safeSearch=strict`);
 
 
             if (type === 'home') {
