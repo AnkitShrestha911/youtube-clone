@@ -73,7 +73,7 @@ const VideoCard = ({ video }) => {
         {isPlay &&
           <div>
             <ReactPlayer
-              url={`https://www.youtube.com/watch?v=${video?.id?.videoId}`}
+              url={`https://www.youtube.com/watch?v=${video?.id?.videoId ? video?.id?.videoId : video?.videoId}`}
               width={`100%`}
               height={`${height}px`}
               muted={true}
