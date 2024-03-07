@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import { fetchDataFromApi, fetchDataFromRapidApi } from '../utlis/api'
 import { auth } from '../auth/firebase';
-import { signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
+import { GoogleAuthProvider, onAuthStateChanged, signOut, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
@@ -52,7 +52,8 @@ export const AppContext = (props) => {
     async function googleSignIn() {
         navigate('/')
         const provider = new GoogleAuthProvider();
-        await signInWithRedirect(auth, provider)
+        await signInWithPopup(auth, provider)
+
 
 
     }
@@ -307,6 +308,7 @@ export const AppContext = (props) => {
                 setReadMore,
                 HomeError,
                 logOut
+
 
 
             }}

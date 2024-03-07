@@ -4,8 +4,11 @@ import { Context } from "../context/contextApi";
 import Loader from "../components/Loader";
 
 
+
+
 const Home = () => {
   const { loading, selectCategories, searchResults, fetchSelectedCategoryData, HomeError, logOut } = useContext(Context);
+
 
 
   useEffect(() => {
