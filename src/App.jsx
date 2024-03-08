@@ -2,28 +2,30 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import SearchResult from './pages/SearchResult'
 import VideoPage from './pages/VideoPage'
-import Header from './components/Header'
 import NotFound from './pages/NotFound'
-import { useContext } from 'react'
 import PrivateRoute from './components/PrivateRoute'
-import { Context } from './context/contextApi'
+import { useEffect } from 'react'
+
+
 
 const App = () => {
 
-  const { loginDetail } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
+
   let path = location.pathname.split('/').at(-1);
-  if (path.toLocaleLowerCase() === 'login') {
-    navigate('/')
-  }
+
+  useEffect(() => {
+    if (path.toLocaleLowerCase() === 'login') {
+      navigate('/')
+    }
+  }, [path])
+
 
   return (
     <div className='h-full relative bg-black' >
-      {
-        localStorage.getItem('accessToken') ? <Header /> : null
-      }
-      <Routes>
+
+      <Routes >
         <Route element={<PrivateRoute />}>
           <Route path='/' element={<Home />} />
           <Route path='/searchResult/:searchQuery' element={<SearchResult />} />

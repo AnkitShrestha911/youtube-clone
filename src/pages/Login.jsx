@@ -2,13 +2,16 @@ import { useContext, useEffect } from "react";
 import { FaYoutube } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Context } from "../context/contextApi";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Login = () => {
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        history.pushState(null, 'HomePage', '/');
+        navigate('/')
     }, [])
 
     const { googleSignIn } = useContext(Context);

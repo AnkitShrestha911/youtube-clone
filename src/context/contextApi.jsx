@@ -141,8 +141,6 @@ export const AppContext = (props) => {
 
     }
 
-
-
     useEffect(() => {
         async function getCategoryDetail() {
             await fetchSelectedCategoryData('home', selectCategories);
@@ -203,7 +201,6 @@ export const AppContext = (props) => {
     }
 
     async function fetchRelatedVideoDetail(videoId) {
-        console.log('iamhere')
         setLoading(true);
         const { data, error } = await fetchDataFromRapidApi(`related?id=${videoId}`);
 
@@ -247,7 +244,6 @@ export const AppContext = (props) => {
 
         }
 
-
         setLoading(false);
 
     }
@@ -257,10 +253,8 @@ export const AppContext = (props) => {
         setLoading(true);
 
         try {
-            const items = await fetchDataFromApi(`commentThreads?part=snippet,replies&videoId=${videoId}&maxResults=50`);
-            console.log(items)
+            const { items } = await fetchDataFromApi(`commentThreads?part=snippet,replies&videoId=${videoId}&maxResults=50`);
             setCommentDetails(items);
-
 
         } catch (err) {
             if (err.response.status === 403) {

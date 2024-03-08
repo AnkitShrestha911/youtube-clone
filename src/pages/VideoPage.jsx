@@ -36,7 +36,8 @@ const VideoPage = () => {
   const [isMuted, setIsMuted] = useState(true)
   const [isLike, setIsLike] = useState(false);
   const [isDislike, setIsDisLike] = useState(false);
-  const [isPlay, setIsPlay] = useState(true);
+
+
 
 
 
@@ -225,21 +226,19 @@ const VideoPage = () => {
                 {/* Part-1 */}
                 <div className="w-full" >
                   <div className={` max-w-[1200px]   overflow-hidden rounded-lg border  border-gray-900  relative pt-[56.25%]`}>
-                    <div className="w-full h-full absolute -z-0 left-0 top-0">
+                    <div className="w-full h-full absolute -z-0 left-0 top-0" >
                       <ReactPlayer
                         url={`https://www.youtube.com/watch?v=${videoId?.id}`}
                         width={`100%`}
                         height={`100%`}
                         controls={true}
-                        playing={isPlay}
+                        playing={true}
                         muted={isMuted ? true : false}
                         onStart={() => setIsMuted(false)}
-
-
-
                       />
+
+
                     </div>
-                    <div className="w-full bottom-[50px]  absolute top-0 left-0  z-10 cursor-pointer" onClick={() => setIsPlay(prev => !prev)}></div>
                   </div>
 
                   <div className="mt-5  ">

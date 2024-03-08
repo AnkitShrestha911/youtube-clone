@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Context } from "../context/contextApi";
 import { FaBars } from "react-icons/fa";
 import {
@@ -19,8 +19,30 @@ import { auth } from "../auth/firebase";
 const Header = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const removeLogoutMenu = (e) => {
+      let check = false;
+      if (e.target === document.querySelector('.profile-img') || e.target === infoRef?.current) return;
+      Array.from(infoRef?.current?.children).map((child) => {
+        if (e.target == child) {
+          check = true;
+        }
+      })
+
+      if (!check) {
+        setProfileClick(false);
+      }
+    }
+
+    window.addEventListener('click', removeLogoutMenu)
+
+    return () => window.removeEventListener('click', removeLogoutMenu)
+  }, [])
+
+
 
   const inputRef = useRef(null);
+  const infoRef = useRef(null);
 
   async function logOut() {
     try {
@@ -159,24 +181,26 @@ const Header = () => {
         />
         <div
           className={`w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-[50%] overflow-hidden cursor-pointer ${searchActive ? "hidden" : null
-            } md:block   select-none`}
-          onClick={() => setProfileClick(true)}
+            } md:block   select-none `}
+          onClick={() => {
+            setProfileClick(true)
+          }
+          }
 
         >
           <img
             src={loginDetail?.photoURL}
             alt="profile"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover profile-img"
           />
-
 
         </div>
         <div className={`bg-slate-800  text-white min-h-[150px] pb-5 w-[300px] absolute right-3 lg:right-10  flex-col items-center px-2 rounded-lg justify-center z-10  top-[95%] ${profileClick ? 'flex' : 'hidden'}`}
-        >
+          ref={infoRef}>
           <p className="text-[1.2rem] mt-10 font-bold">Welcome, {loginDetail?.displayName}</p>
           <p className=" mt-3 font-bold text-[0.8rem] tracking-wide flex items-center ">{loginDetail?.email}</p>
           <button className="bg-black w-full py-2 font-bold rounded-lg mt-5 hover:bg-white/[0.2]" onClick={logOut}>Logout</button>
-          <p className="absolute top-1 right-3 text-[0.8rem] font-bold cursor-pointer py-[0.2rem] rounded-lg px-2 bg-black hover:bg-white/[0.2]" onClick={() => setProfileClick(false)}>close</p>
+          <p className="absolute top-1 right-3 text-[0.8rem] font-bold cursor-pointer py-[0.2rem] rounded-lg px-2 bg-black hover:bg-white/[0.2]" onClick={() => setProfileClick(false)} >close</p>
         </div>
       </div>
 
