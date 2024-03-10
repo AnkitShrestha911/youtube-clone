@@ -44,9 +44,19 @@ export const AppContext = (props) => {
 
         })
 
+
+
     }, [])
 
 
+
+    useEffect(() => {
+        if (mobileMenu && window.innerWidth <= 600)
+            document.body.style.overflow = 'hidden';
+        else {
+            document.body.style.overflow = ''
+        }
+    }, [mobileMenu])
 
 
     async function googleSignIn() {

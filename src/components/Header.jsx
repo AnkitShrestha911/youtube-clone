@@ -206,7 +206,7 @@ const Header = () => {
 
       <div
         className={`h-screen bg-black  absolute top-[80%] w-[300px] z-[50]  ${mobileMenu ? "translate-x-[-20px]" : "translate-x-[-320px]"
-          } flex flex-col pt-5 transition-all duration-300 ease-in-out overflow-y-auto pb-20 no-scrollbar`}
+          } flex flex-col pt-5 transition-all duration-300 ease-in-out overflow-y-auto pb-20 no-scrollbar overscroll-contain`}
       >
         {categories.map((item, index) => {
           return (

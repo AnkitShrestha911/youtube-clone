@@ -168,15 +168,10 @@ const VideoPage = () => {
 
 
 
-
-
   useEffect(() => {
     setLikeCount(parseInt(currentVideo?.statistics?.likeCount));
 
   }, [currentVideo])
-
-
-
 
 
   let videoTitle = currentVideo?.snippet?.title;
@@ -187,16 +182,12 @@ const VideoPage = () => {
   let totalComment = currentVideo?.videoStatistics?.commentCount ? currentVideo?.videoStatistics?.commentCount : currentVideo?.statistics?.commentCount;
   let description = currentVideo?.snippet?.description;
 
-
-
   function shortDescription(description) {
     return description.split('\n');
   }
 
-
-
   return (
-    <div className={`w-full ${mobileMenu ? 'h-screen overflow-y-hidden' : 'min-h-screen overflow-y-auto'}  bg-black text-white pb-5 `}>
+    <div className={`w-full min-h-screen overflow-y-auto bg-black text-white pb-5 `}>
 
       {loading ?
         <Loader /> :

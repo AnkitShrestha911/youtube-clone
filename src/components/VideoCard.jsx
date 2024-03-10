@@ -103,17 +103,24 @@ const VideoCard = ({ video }) => {
             {videoTitle?.length > 50 ? videoTitle?.substring(0, 50) + '...' : videoTitle}
           </h2>
 
-          <div className="flex gap-5 mt-1 items-center md:block md:gap-0 md:mt-0">
-            <p className="text-[0.73rem]  text-white/[0.8]">{channelTitle}</p>
-            <div className="flex gap-5 text-[0.75rem]  text-white/[0.6]">
-              <p> {viewHandler(totalViews)} {totalViews ? 'views' : null}</p>
-              <p>{publishedTime ? <ReactTimeAgo date={Date.parse(publishedTime)} /> : null}</p>
-            </div>
+          <div className="flex md:hidden  flex-wrap w-full gap-x-2 mt-1 items-center  md:gap-0 md:mt-0">
+            <span className="text-[0.64rem] sm:text-[0.73rem]  text-white/[0.85]">{channelTitle}</span>
+            <span className=" text-[0.68rem] sm:text-[0.75rem]  text-white/[0.]"> {viewHandler(totalViews)} {totalViews ? 'views' : null}</span>
+            <span className=" text-[0.68rem] sm:text-[0.75rem]  text-white/[0.]">{publishedTime ? <ReactTimeAgo date={Date.parse(publishedTime)} /> : null}</span>
           </div>
 
+          <div className="hidden md:block gap-2 text-[0.68rem] sm:text-[0.75]  text-white/[0.6]">
+            <p className="text-[0.64rem] sm:text-[0.73rem]  text-white/[0.85]">{channelTitle}</p>
+            <div className="flex gap-x-3 mt-1">
+              <p className=" text-[0.68rem] sm:text-[0.78rem]  text-white/[0.6]"> {viewHandler(totalViews)} {totalViews ? 'views' : null}</p>
+              <p className=" text-[0.68rem] sm:text-[0.78rem]  text-white/[0.6]">{publishedTime ? <ReactTimeAgo date={Date.parse(publishedTime)} /> : null}</p>
+            </div>
+          </div>
         </div>
+
       </div>
-    </div >
+    </div>
+
 
   );
 };

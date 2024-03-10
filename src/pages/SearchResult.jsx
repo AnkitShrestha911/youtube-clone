@@ -16,7 +16,7 @@ const SearchResult = () => {
 
 
   return (
-    <div className={`w-screen ${mobileMenu ? 'h-screen overflow-y-hidden' : 'min-h-screen overflow-y-auto'}  bg-black `}>
+    <div className={`w-screen min-h-screen overflow-y-auto  bg-black `}>
       {
         loading ? <Loader /> :
           <div className="w-full max-w-[1200px]   xl:pl-10 h-[calc(100%-100px)] mx-auto mt-[5rem] text-white  pb-10">
