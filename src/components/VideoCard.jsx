@@ -105,8 +105,8 @@ const VideoCard = ({ video }) => {
 
           <div className="flex md:hidden  flex-wrap w-full gap-x-2 mt-1 items-center  md:gap-0 md:mt-0">
             <span className="text-[0.64rem] sm:text-[0.73rem]  text-white/[0.85]">{channelTitle}</span>
-            <span className=" text-[0.68rem] sm:text-[0.75rem]  text-white/[0.]"> {viewHandler(totalViews)} {totalViews ? 'views' : null}</span>
-            <span className=" text-[0.68rem] sm:text-[0.75rem]  text-white/[0.]">{publishedTime ? <ReactTimeAgo date={Date.parse(publishedTime)} /> : null}</span>
+            <span className=" text-[0.68rem] sm:text-[0.75rem]  text-white/[0.6]"> {viewHandler(totalViews)} {totalViews ? 'views' : null}</span>
+            <span className=" text-[0.68rem] sm:text-[0.75rem]  text-white/[0.6]">{publishedTime ? <ReactTimeAgo date={Date.parse(publishedTime)} /> : null}</span>
           </div>
 
           <div className="hidden md:block gap-2 text-[0.68rem] sm:text-[0.75]  text-white/[0.6]">
