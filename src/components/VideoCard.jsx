@@ -60,34 +60,36 @@ const VideoCard = ({ video }) => {
 
     }}>
       {/* part-1 */}
-      <div className={`w-full  ${height === 0 ? 'h-[249px]' : `h-[${height}px]`} overflow-hidden rounded-lg  relative   border border-slate-800`} >
 
-        <img
-          src={cardThumbnail}
-          className={`w-full h-[175px] min-[500px]:h-[249px] 2xl:h-[249px] absolute ${isPlay ? '-z-10' : 'z-0'}`}
-          ref={imgRef}
+      <div className={`w-full  rounded-lg  relative   border  border-slate-800`} onMouseEnter={() => setIsPlay(true)} onMouseLeave={() => setIsPlay(false)}>
+        <div className={`${isPlay ? 'opacity-0' : 'opacity-100'} `} >
+          <img
+            src={cardThumbnail}
+            className={`w-full max-h-full cursor-pointer `}
+            ref={imgRef}
 
-        />
-        <span className="bg-black text-white px-2 py-1 text-[0.9rem] absolute right-1 bottom-1 rounded-md">{totalLengthInSecond === 0 ? null : totalLengthInSecond === video?.lengthText ? totalLengthInSecond : hhmmss(totalLengthInSecond)}</span>
+          />
+          <span className="bg-black text-white px-2 py-1 text-[0.9rem] absolute right-1 bottom-1 rounded-md">{totalLengthInSecond === 0 ? null : totalLengthInSecond === video?.lengthText ? totalLengthInSecond : hhmmss(totalLengthInSecond)}</span>
+        </div>
 
         {isPlay &&
-          <div>
+          < div className={` w-full absolute h-[${height}] top-0 bottom-0 left-0 right-0 `}>
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${video?.id?.videoId ? video?.id?.videoId : video?.videoId}`}
               width={`100%`}
-              height={`${height}px`}
+              height={`100%`}
               muted={true}
               playing={isPlay}
             />
           </div>
         }
 
-        <div className={`w-full h-[${height}px] absolute left-0 right-0 top-0 bottom-0`} onMouseEnter={() => setIsPlay(true)} onMouseLeave={() => setIsPlay(false)}></div>
+        <div className={` w-full absolute h-[${height}] top-0 bottom-0 left-0 right-0 cursor-pointer`}></div>
 
       </div>
 
       {/* Part-2 */}
-      <div className="w-full flex mt-3">
+      <div className="w-full flex mt-3 ">
         {/* Avator profile picture */}
         <div className="max-w-[40px] max-h-[40px] overflow-hidden   ">
           <img
@@ -97,18 +99,21 @@ const VideoCard = ({ video }) => {
         </div>
 
         <div className="ml-5">
-          <h2 className="font-bold">
+          <h2 className="text-[0.9rem]">
             {videoTitle?.length > 50 ? videoTitle?.substring(0, 50) + '...' : videoTitle}
           </h2>
-          <p className="text-[0.8rem] sm:text-[0.9rem]">{channelTitle}</p>
 
-          <div className="flex gap-5 text-[0.8rem] sm:text-[0.9rem]">
-            <p> {viewHandler(totalViews)} {totalViews ? 'views' : null}</p>
-            <p>{publishedTime ? <ReactTimeAgo date={Date.parse(publishedTime)} /> : null}</p>
+          <div className="flex gap-5 mt-1 items-center md:block md:gap-0 md:mt-0">
+            <p className="text-[0.73rem]  text-white/[0.8]">{channelTitle}</p>
+            <div className="flex gap-5 text-[0.75rem]  text-white/[0.6]">
+              <p> {viewHandler(totalViews)} {totalViews ? 'views' : null}</p>
+              <p>{publishedTime ? <ReactTimeAgo date={Date.parse(publishedTime)} /> : null}</p>
+            </div>
           </div>
+
         </div>
       </div>
-    </div>
+    </div >
 
   );
 };

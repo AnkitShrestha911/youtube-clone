@@ -34,7 +34,7 @@ const SuggestionCard = ({ video }) => {
 
     }}>
       {/* part-1 */}
-      <div className="min-w-[200px] w-[100px]    overflow-hidden rounded-lg relative -z-0  ">
+      <div className="min-w-[200px]     overflow-hidden rounded-lg relative -z-0  ">
         <img
           src={cardThumbnail}
           className="min-w-full min-h-full "

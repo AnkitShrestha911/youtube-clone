@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom"
 import Header from "./Header";
 import { Context } from "../context/contextApi";
@@ -22,7 +22,9 @@ const PrivateRoute = () => {
             !localStorage.getItem('accessToken') ? <Login /> :
                 (<>
                     {localStorage.getItem('accessToken') ? <Header /> : null}
+
                     < Outlet />
+
                 </>
                 )
 

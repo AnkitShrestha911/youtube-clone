@@ -4,10 +4,8 @@ import { Context } from "../context/contextApi";
 import Loader from "../components/Loader";
 
 
-
-
 const Home = () => {
-  const { loading, selectCategories, searchResults, fetchSelectedCategoryData, HomeError, logOut } = useContext(Context);
+  const { loading, selectCategories, searchResults, fetchSelectedCategoryData, HomeError, logOut, mobileMenu } = useContext(Context);
 
 
 
@@ -16,17 +14,18 @@ const Home = () => {
   }, [selectCategories])
 
 
+
   return (
     <div
-      className={`w-screen min-h-[calc(100vh-80px)] bg-black px-5  md:px-10 mt-14 `}
+      className={`w-screen ${mobileMenu ? 'h-screen overflow-y-hidden' : 'min-h-[calc(100vh-80px)] overflow-y-auto'} bg-black  md:px-8 mt-14 `}
     >
 
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 text-white  md:place-items-baseline  pb-10 pt-10 gap-5 overflow-y-auto place-content-center  mx-auto">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 text-white  md:place-items-baseline  pb-10 pt-10 gap-5 overflow-y-auto place-content-center  mx-auto">
         {loading ?
 
           <Loader /> :
           <>
-            {searchResults?.length > 0 &&
+            {(HomeError?.response?.status != 403 && searchResults?.length > 0) &&
 
               searchResults?.map((item, index) => {
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { FaCheck } from "react-icons/fa6";
 import {
@@ -36,9 +36,7 @@ const VideoPage = () => {
   const [isMuted, setIsMuted] = useState(true)
   const [isLike, setIsLike] = useState(false);
   const [isDislike, setIsDisLike] = useState(false);
-
-
-
+  const mainPage = useRef(null);
 
 
 
@@ -60,7 +58,6 @@ const VideoPage = () => {
     setReadMore,
     HomeError,
     logOut
-
 
   } = useContext(Context);
 
@@ -199,7 +196,7 @@ const VideoPage = () => {
 
 
   return (
-    <div className={`w-full  min-h-screen bg-black text-white pb-5 px-2  `}>
+    <div className={`w-full ${mobileMenu ? 'h-screen overflow-y-hidden' : 'min-h-screen overflow-y-auto'}  bg-black text-white pb-5 `}>
 
       {loading ?
         <Loader /> :
@@ -242,15 +239,15 @@ const VideoPage = () => {
                   </div>
 
                   <div className="mt-5  ">
-                    <h2 className="text-white md:text-2xl font-bold tracking-wide">
+                    <h2 className="text-white md:text-2xl font-bold tracking-wide px-2">
                       {videoTitle?.length > 80 ? videoTitle?.substring(0, 80) + '...' : videoTitle}
                     </h2>
 
                     {/* main div */}
-                    <div className="mt-5 flex justify-between flex-wrap min-[960px]:flex-nowrap gap-5 max-w-[1200px]">
+                    <div className="mt-5 w-full flex justify-between flex-wrap min-[960px]:flex-nowrap gap-5 ">
                       {/* left div */}
-                      <div className="w-full">
-                        <div className="flex gap-x-5   items-center flex-wrap    w-full">
+                      <div className="w-full px-2">
+                        <div className="flex gap-x-5  items-center flex-wrap    w-full">
                           <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
                             <img
                               src={currentVideo?.channelPicture?.thumbnails?.high?.url}
@@ -260,13 +257,13 @@ const VideoPage = () => {
                           </div>
 
                           <div>
-                            <p className="flex items-center gap-x-2 tracking-wide">
+                            <p className="flex items-center gap-x-2 tracking-wide text-[0.75rem]">
                               {channelTitle}{" "}
                               <span className="w-[16px] h-[16px] rounded-full bg-gray-400 inline-flex justify-center items-center text-black text-xl p-[2px]">
                                 <FaCheck />
                               </span>
                             </p>
-                            <p className="text-white/[0.5] text-[0.9rem] tracking-tight">
+                            <p className="text-white/[0.5] text-[0.8rem] tracking-tight">
                               {viewHandler(subscribers)} subscribers
                             </p>
                           </div>
@@ -275,7 +272,7 @@ const VideoPage = () => {
                           {/* left right div */}
 
                           <div
-                            className={`bg-white text-black py-2 flex max-[331px]:mt-5   justify-center items-center cursor-pointer px-4 rounded-full font-bold ${SubscribedMenu.isSubscribed ? "hidden" : "flex"
+                            className={`bg-white text-black font-bold sm:font-normal py-2 text-[0.8rem] sm:text-[1rem] flex max-[331px]:mt-5   justify-center items-center cursor-pointer px-4 rounded-full  ${SubscribedMenu.isSubscribed ? "hidden" : "flex"
                               }`}
                             onClick={() => SubscribedMenuHandler("subscribed")}
                           >
@@ -285,7 +282,7 @@ const VideoPage = () => {
                           <div className={`${!mobileMenu ? "relative" : null}`}>
                             {SubscribedMenu.isSubscribed && (
                               <div
-                                className="flex flex-wrap max-[408px]:mt-5 py-2 items-center justify-between bg-gray-700 font-bold gap-x-2 rounded-full px-5 cursor-pointer  h-full"
+                                className="flex flex-wrap max-[343px]:mt-5 py-2 items-center justify-between bg-gray-700 font-bold gap-x-2 rounded-full px-5 cursor-pointer  h-full"
                                 onClick={SubscribedMenuClickHandler}
                               >
                                 {SubscribedMenu.isAll &&
@@ -301,7 +298,7 @@ const VideoPage = () => {
                                   <IoMdNotificationsOff className="text-xl" />
                                 )}
                                 <p className="flex items-center justify-between gap-x-2">
-                                  Subscribed{" "}
+                                  <span className="hidden md:inline">Subscribed</span>{" "}
                                   <span className="text-xl">
                                     <IoIosArrowDown />
                                   </span>
@@ -311,8 +308,8 @@ const VideoPage = () => {
 
                             {/* Options */}
                             <div
-                              className={`absolute ${!mobileMenu ? "top-[105%]" : "left-[18.5%]"
-                                } max-[400px]:top-[110%] ${mobileMenu ? "hidden" : "block"} left-0  bg-gray-700 rounded-xl ${SubscribedMenuClick ? "block" : "hidden"
+                              className={`absolute z-10 ${!mobileMenu ? "top-[105%]" : "left-[18.5%]"
+                                } max-[400px]:top-[110%]  ${mobileMenu ? "hidden" : "block"} left-0  bg-gray-700 rounded-xl ${SubscribedMenuClick ? "block" : "hidden"
                                 }`}
                             >
                               <div
@@ -324,7 +321,7 @@ const VideoPage = () => {
                               >
                                 <MdNotificationsActive className="text-xl" />
                                 <p className="flex items-center justify-between gap-x-2">
-                                  All{" "}
+                                  <span className="hidden min-[448px]:inline-block">All</span>{" "}
                                 </p>
                               </div>
 
@@ -337,7 +334,7 @@ const VideoPage = () => {
                               >
                                 <IoMdNotifications className="text-xl" />
                                 <p className="flex items-center justify-between gap-x-2">
-                                  Personalized{" "}
+                                  <span className="hidden min-[448px]:inline-block">Personalized</span>{" "}
                                 </p>
                               </div>
 
@@ -350,7 +347,7 @@ const VideoPage = () => {
                               >
                                 <IoMdNotificationsOff className="text-xl" />
                                 <p className="flex items-center justify-between gap-x-2">
-                                  None{" "}
+                                  <span className="hidden min-[448px]:inline-block" >None</span>{" "}
                                 </p>
                               </div>
 
@@ -363,7 +360,7 @@ const VideoPage = () => {
                               >
                                 <IoPersonRemoveSharp className="text-xl" />
                                 <p className=" items-center justify-between gap-x-2 flex">
-                                  Unsubscribed{" "}
+                                  <span className="hidden min-[448px]:inline-block">Unsubscribed</span>{" "}
                                 </p>
                               </div>
                             </div>
@@ -372,9 +369,9 @@ const VideoPage = () => {
                       </div>
 
                       {/* right div */}
-                      <div className="flex   items-center  overflow-x-auto lg:overflow-visible  gap-5 mr-5  no-scrollbar">
+                      <div className="flex pl-2 items-center  overflow-x-auto lg:overflow-visible  gap-2 no-scrollbar">
                         {/* Like  */}
-                        <div className=" flex items-center justify-between w-[120px] h-[38px]  cursor-pointer mr-5">
+                        <div className=" flex items-center justify-between w-[120px] h-[38px]  cursor-pointer mr-7 ">
                           <div className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 h-full w-full  rounded-l-full px-3" onClick={() => {
                             setIsLike(true);
                             setIsDisLike(false);
@@ -393,7 +390,7 @@ const VideoPage = () => {
 
                           </div>
 
-                          <div className="flex items-center justify-center bg-gray-700  hover:bg-gray-600 w-full h-full border-l rounded-r-full border-l-gray-500 px-4 " onClick={() => {
+                          <div className="flex items-center pl-2 justify-center bg-gray-700  hover:bg-gray-600 w-full h-full border-l rounded-r-full border-l-gray-500 px-4 " onClick={() => {
                             setIsDisLike(true);
                             setIsLike(false);
                             setLikeCount(prev => prev - 1);
@@ -436,50 +433,61 @@ const VideoPage = () => {
                     </div>
 
                     {/* description */}
-                    <div
-                      className={`max-w-[1200px] min-h-[100px] bg-slate-800 rounded-xl mt-5 font-semibold overflow-x-auto px-4 space-y-2 flex flex-col flex-wrap pb-[20px]`}
-                    >
-                      <p className="flex gap-x-2 pt-2 flex-wrap ">
-                        <span>{viewHandler(totalViews)} views</span> <span><ReactTimeAgo date={publishedTime ? Date.parse(publishedTime) : new Date()?.getTime()} /> </span>{" "}
-                        {
-                          currentVideo?.snippet?.tags?.map((tag, index) => {
-                            return <span key={index}>#{tag}</span>
-                          })
-                        }
-                      </p>
+                    <div className="w-full px-1 md:px-0">
+                      <div
+                        className={`max-w-[1200px] min-h-[100px] bg-slate-800 rounded-xl mt-5 overflow-x-auto px-4 space-y-2 flex flex-col flex-wrap pb-[20px] text-[0.9rem]`}
+                      >
+                        <p className="flex gap-x-2 pt-2 flex-wrap ">
+                          <span>{viewHandler(totalViews)} views</span> <span><ReactTimeAgo date={publishedTime ? Date.parse(publishedTime) : new Date()?.getTime()} /> </span>{" "}
+                          {
+                            !readmore &&
+                            currentVideo?.snippet?.tags?.map((tag, index) => {
+                              if (index >= 4) return;
+                              return <span key={index}>#{tag}</span>
+                            })
 
-                      <div className="space-y-5 text-justify pr-1 lg:pr-10 leading-5 md:leading-8 text-[0.9rem]">
-                        {!readmore && (
-                          <div>
-                            {description?.length > 200
-                              ? shortDescription(description?.substring(0, 200)).map((text, index) => {
-                                return <p key={index}>{text}{index === shortDescription(description?.substring(0, 200)).length - 1 ? '.....' : null}</p>
-                              })
-                              : description?.split('\n').map((text, index) => {
+                          }
+                          {
+                            readmore &&
+                            currentVideo?.snippet?.tags?.map((tag, index) => {
+                              return <span key={index}>#{tag}</span>
+                            })
+                          }
+                        </p>
+
+                        <div className="space-y-5 text-justify pr-1 lg:pr-10 leading-5 md:leading-8 text-[0.9rem]">
+                          {!readmore && (
+                            <div>
+                              {description?.length > 50
+                                ? shortDescription(description?.substring(0, 50)).map((text, index) => {
+                                  return <p key={index}>{text}{index === shortDescription(description?.substring(0, 50)).length - 1 ? '.....' : null}</p>
+                                })
+                                : description?.split('\n').map((text, index) => {
+                                  return <p key={index}>{text}</p>
+                                })}
+
+                            </div>
+
+                          )}
+
+                          {readmore &&
+                            <div>
+                              {description?.split('\n').map((text, index) => {
                                 return <p key={index}>{text}</p>
                               })}
+                            </div>
+                          }
+                        </div>
 
-                          </div>
-
-                        )}
-
-                        {readmore &&
-                          <div>
-                            {description?.split('\n').map((text, index) => {
-                              return <p key={index}>{text}</p>
-                            })}
-                          </div>
+                        {description?.length > 50 &&
+                          <span
+                            className="cursor-pointer text-sky-500"
+                            onClick={() => setReadMore((prev) => !prev)}
+                          >
+                            {readmore ? "Showless" : "Showmore"}
+                          </span>
                         }
                       </div>
-
-                      {description?.length > 200 &&
-                        <span
-                          className="cursor-pointer text-sky-500"
-                          onClick={() => setReadMore((prev) => !prev)}
-                        >
-                          {readmore ? "ShowLess" : "ShowMore"}
-                        </span>
-                      }
                     </div>
 
                     <div className="w-full xl:w-auto mt-10 m  xl:hidden grid grid-cols-1 sm:grid-cols-2  gap-5 ">
@@ -494,9 +502,9 @@ const VideoPage = () => {
 
                     {/* comment */}
 
-                    <div>
+                    <div >
                       {/* comment counter and sort by  */}
-                      <div className="flex gap-x-10 mt-5 items-end">
+                      <div className="flex gap-x-10 mt-5 items-end pl-2 sm:pl-0 ">
                         <div className="text-xl md:text-2xl font-semibold">
                           {totalComment ? parseInt(totalComment).toLocaleString() : 0} Comments
                         </div>
@@ -510,7 +518,7 @@ const VideoPage = () => {
                       <PostComment />
 
                       {/* Posted comment */}
-                      <div className="mt-10  max-w-[1200px]">
+                      <div className="mt-10  max-w-[1200px] pl-2 sm:pl-0">
                         {/* Show comment */}
                         {
                           commentDetails?.map((comment) => {
@@ -519,6 +527,7 @@ const VideoPage = () => {
                         }
                       </div>
                     </div>
+
                   </div>
                 </div>
 

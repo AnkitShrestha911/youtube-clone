@@ -21,9 +21,9 @@ const PostComment = () => {
     }
 
     return (
-        <form className='mt-10 max-w-[1200px]' onSubmit={handleComment} >
+        <form className='mt-10 max-w-[1200px] pl-2 sm:pl-0' onSubmit={handleComment} >
             <div className='flex gap-5'>
-                <div className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full overflow-hidden'>
+                <div className='w-[30px] h-[25px] md:w-[40px] md:h-[40px] rounded-full overflow-hidden'>
                     <img src={loginDetail?.photoURL} alt="profile" />
                 </div>
 

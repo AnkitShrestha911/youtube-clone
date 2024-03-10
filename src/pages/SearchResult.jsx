@@ -5,7 +5,7 @@ import Loader from "../components/Loader";
 import { useParams, Link } from "react-router-dom";
 
 const SearchResult = () => {
-  const { loading, searchText, searchCardResult, fetchSelectedCategoryData, HomeError, logOut } = useContext(Context);
+  const { loading, searchText, searchCardResult, fetchSelectedCategoryData, HomeError, logOut, mobileMenu } = useContext(Context);
   const { searchQuery } = useParams();
 
 
@@ -16,11 +16,11 @@ const SearchResult = () => {
 
 
   return (
-    <div className="w-screen min-h-[100vh] bg-black px-2">
+    <div className={`w-screen ${mobileMenu ? 'h-screen overflow-y-hidden' : 'min-h-screen overflow-y-auto'}  bg-black `}>
       {
         loading ? <Loader /> :
-          <div className="w-full max-w-[1200px]  px-2 xl:pl-10 h-[calc(100%-100px)] mx-auto mt-[5rem] text-white  pb-10">
-            <p className="text-xl py-5">{`Search Result for: ${searchText.length > 0 ? searchText : searchQuery}`}</p>
+          <div className="w-full max-w-[1200px]   xl:pl-10 h-[calc(100%-100px)] mx-auto mt-[5rem] text-white  pb-10">
+            <p className="text-xl pl-2 py-5">{`Search Result for: ${searchText.length > 0 ? searchText : searchQuery}`}</p>
             {searchCardResult?.map((item, index) => {
 
               return <SearchCard key={index} video={item} />;

@@ -205,15 +205,15 @@ const Header = () => {
       </div>
 
       <div
-        className={`min-h-screen md:h-[calc(100vh-80px)] bg-black  absolute top-[80%] w-[300px] z-[50]  ${mobileMenu ? "translate-x-[-20px]" : "translate-x-[-320px]"
-          } flex flex-col pt-5 transition-all duration-300 ease-in-out overflow-y-auto `}
+        className={`h-screen bg-black  absolute top-[80%] w-[300px] z-[50]  ${mobileMenu ? "translate-x-[-20px]" : "translate-x-[-320px]"
+          } flex flex-col pt-5 transition-all duration-300 ease-in-out overflow-y-auto pb-20 no-scrollbar`}
       >
         {categories.map((item, index) => {
           return (
 
             <div
               key={index}
-              className={`text-white flex    mx-0 px-3  ${item.name === 'Settings' ? 'border-t mt-5 border-t-gray-700 ' : null}`}
+              className={`text-white flex  py-1  mx-0 px-3  ${item.name === 'Settings' ? 'border-t mt-5 border-t-gray-700 ' : null}`}
               onClick={() => categoryHandler(item.name, item.type)}
             >
 

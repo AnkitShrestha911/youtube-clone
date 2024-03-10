@@ -29,7 +29,7 @@ const SearchCard = ({ video }) => {
 
   return (
     <>
-      <div className="w-full rounded-[20px] overflow-hidden cursor-pointer   items-start mb-5 sm:flex hidden" onClick={() => {
+      <div className="w-full  overflow-hidden cursor-pointer sm:pl-2   items-start mb-5 sm:flex hidden" onClick={() => {
         navigate(`/video/${video?.id?.videoId}`)
         moveToTop();
 
@@ -44,7 +44,7 @@ const SearchCard = ({ video }) => {
 
       }}>
         {/* part-1 */}
-        <div className="min-w-[350px] overflow-hidden   rounded-[20px]  relative z-0">
+        <div className="min-w-[350px] overflow-hidden   rounded-[8px]  relative z-0">
           <img
             src={cardThumbnail}
             className="min-w-full h-full object-fill "
