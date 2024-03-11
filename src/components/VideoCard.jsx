@@ -6,27 +6,75 @@ import ReactTimeAgo from "react-time-ago";
 import ReactPlayer from "react-player";
 
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, index }) => {
 
+  const { viewHandler, getVideoDetail, fetchRelatedVideoDetail, hhmmss, fetchVideoCommentDetail, searchResults, dotRef, relatedVideos, searchCardResult } = useContext(Context);
+  let refs = [];
 
   const navigate = useNavigate();
   const imgRef = useRef(null);
   const [isPlay, setIsPlay] = useState(false);
   const [height, setHeight] = useState(0);
 
+  if (searchResults) {
+    searchResults?.map(() => {
+      refs.push(useRef(null));
+    })
+
+
+  }
+  else if (relatedVideos) {
+    relatedVideos?.map(() => {
+      refs.push(useRef(null));
+    })
+
+
+
+  }
+  else if (searchCardResult) {
+    searchCardResult?.map(() => {
+      refs.push(useRef(null));
+    })
+
+  }
+
+
   useEffect(() => {
     setIsPlay(false);
     setHeight(imgRef?.current?.offsetHeight);
+    const previewOnScroll = () => {
+      if (window.innerWidth <= 640) {
+        window.addEventListener('scroll', () => {
+
+          let overlap = !(dotRef?.current?.getBoundingClientRect().right < refs[index]?.current?.getBoundingClientRect().left ||
+            dotRef?.current?.getBoundingClientRect().left > refs[index]?.current?.getBoundingClientRect().right ||
+            dotRef?.current?.getBoundingClientRect().bottom < refs[index]?.current?.getBoundingClientRect().top ||
+            dotRef?.current?.getBoundingClientRect().top > refs[index]?.current?.getBoundingClientRect().bottom)
+
+          if (overlap) {
+            setIsPlay(true);
+          }
+          else {
+            setIsPlay(false)
+          }
+
+
+        })
+      }
+
+    }
     const getHeight = () => {
+      previewOnScroll();
       setHeight(imgRef?.current?.offsetHeight);
     }
     window.addEventListener('resize', getHeight);
 
+
+    previewOnScroll();
+
+
   }, [])
 
-
-
-  const { viewHandler, getVideoDetail, fetchRelatedVideoDetail, hhmmss, fetchVideoCommentDetail } = useContext(Context);
 
 
   function moveToTop() {
@@ -45,7 +93,7 @@ const VideoCard = ({ video }) => {
 
   return (
 
-    <div className="w-full rounded-lg overflow-hidden cursor-pointer " onClick={() => {
+    <div className="w-full rounded-lg overflow-hidden cursor-pointer mt-2" onClick={() => {
       navigate(`/video/${video?.id?.videoId ? video?.id?.videoId : video?.videoId}`)
       moveToTop()
 
@@ -58,15 +106,25 @@ const VideoCard = ({ video }) => {
 
 
 
-    }}>
+    }} ref={refs[index]}>
       {/* part-1 */}
 
-      <div className={`w-full  rounded-lg  relative   border  border-slate-800`} onMouseEnter={() => setIsPlay(true)} onMouseLeave={() => setIsPlay(false)}>
-        <div className={`${isPlay ? 'opacity-0' : 'opacity-100'} `} >
+      <div className={`w-full  rounded-lg  relative   border  border-slate-800`} onMouseEnter={() => {
+        if (window.innerWidth > 640) {
+          setIsPlay(true)
+        }
+      }} onMouseLeave={() => {
+        if (window.innerWidth > 640)
+          setIsPlay(false)
+      }
+      } >
+
+        <div className={`${isPlay ? 'opacity-0' : 'opacity-100'} `}>
           <img
             src={cardThumbnail}
             className={`w-full max-h-full cursor-pointer `}
             ref={imgRef}
+
 
           />
           <span className="bg-black text-white px-2 py-1 text-[0.9rem] absolute right-1 bottom-1 rounded-md">{totalLengthInSecond === 0 ? null : totalLengthInSecond === video?.lengthText ? totalLengthInSecond : hhmmss(totalLengthInSecond)}</span>

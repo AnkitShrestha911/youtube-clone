@@ -36,9 +36,6 @@ const VideoPage = () => {
   const [isMuted, setIsMuted] = useState(true)
   const [isLike, setIsLike] = useState(false);
   const [isDislike, setIsDisLike] = useState(false);
-  const mainPage = useRef(null);
-
-
 
 
   const [SubscribedMenuClick, setSubscribedMenuClick] = useState(false);
@@ -57,9 +54,10 @@ const VideoPage = () => {
     readmore,
     setReadMore,
     HomeError,
-    logOut
-
+    logOut,
   } = useContext(Context);
+
+
 
 
   const [likeCount, setLikeCount] = useState(parseInt(currentVideo?.statistics?.likeCount));
@@ -484,10 +482,10 @@ const VideoPage = () => {
                     <div className="w-full xl:w-auto mt-10 m  xl:hidden grid grid-cols-1 sm:grid-cols-2  gap-5 ">
                       {" "}
 
-                      {(relatedVideos.length > 0) &&
+                      {(relatedVideos?.length > 0) &&
                         relatedVideos?.map((item, index) => {
                           if (item.type != 'video') return false;
-                          return <VideoCard key={index} video={item} />;
+                          return <VideoCard key={index} video={item} index={index} />;
                         })}
                     </div>
 
@@ -525,14 +523,14 @@ const VideoPage = () => {
                 {/* right part main */}
                 <div className="w-[calc(100%-1000px)]  mt-16  xl:mt-0  hidden xl:block   ">
                   {" "}
-                  {(relatedVideos.length > 0) &&
+                  {(relatedVideos?.length > 0) &&
                     relatedVideos?.map((item, index) => {
                       if (item.type != 'video') return false;
                       return <SuggestionCard key={index} video={item} />;
                     })}
 
                   {
-                    (suggestionError?.code === 403 || relatedVideos.length === 0) &&
+                    (suggestionError?.code === 403 || relatedVideos?.length === 0) &&
                     <h2 className="text-2xl text-center">No Suggestion Found</h2>
                   }
                 </div>

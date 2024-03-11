@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useRef } from 'react'
 import { fetchDataFromApi, fetchDataFromRapidApi } from '../utlis/api'
 import { auth } from '../auth/firebase';
 import { GoogleAuthProvider, onAuthStateChanged, signOut, signInWithPopup } from "firebase/auth";
@@ -18,14 +18,15 @@ export const AppContext = (props) => {
     const [searchResults, setSearchResults] = useState();
     const [HomeError, setHomeError] = useState();
     const [suggestionError, setSuggestionError] = useState();
-    const [searchCardResult, setSearchCardResult] = useState([]);
+    const [searchCardResult, setSearchCardResult] = useState();
     const [commentDetails, setCommentDetails] = useState([]);
     const [currentVideo, setCurrentVideo] = useState();
-    const [relatedVideos, setRelatedVideo] = useState([]);
+    const [relatedVideos, setRelatedVideo] = useState();
     const [selectCategories, setSelectCategories] = useState('New');
     const [mobileMenu, setMobileMenu] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [loginDetail, setLoginDetail] = useState();
+    const dotRef = useRef(null);
 
 
     // setCommentsData((prev) => { return { ...prev } }) // this means we forcefully tell the react to re-render it
@@ -200,7 +201,7 @@ export const AppContext = (props) => {
 
         } catch (err) {
 
-            if (err.response.status === 403) {
+            if (err?.response?.status === 403) {
                 console.clear();
             }
 
@@ -247,7 +248,7 @@ export const AppContext = (props) => {
             })
 
         } catch (err) {
-            if (err.response.status === 403) {
+            if (err?.response?.status === 403) {
                 console.clear();
             }
             setHomeError(err)
@@ -267,7 +268,7 @@ export const AppContext = (props) => {
             setCommentDetails(items);
 
         } catch (err) {
-            if (err.response.status === 403) {
+            if (err?.response?.status === 403) {
                 console.clear();
             }
 
@@ -311,7 +312,8 @@ export const AppContext = (props) => {
                 readmore,
                 setReadMore,
                 HomeError,
-                logOut
+                logOut,
+                dotRef
 
 
 

@@ -1,13 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import VideoCard from "../components/VideoCard";
 import { Context } from "../context/contextApi";
 import Loader from "../components/Loader";
 
 
 const Home = () => {
-  const { loading, selectCategories, searchResults, fetchSelectedCategoryData, HomeError, logOut, mobileMenu } = useContext(Context);
-
-
+  const { loading, selectCategories, searchResults, fetchSelectedCategoryData, HomeError, logOut } = useContext(Context);
 
   useEffect(() => {
     fetchSelectedCategoryData('home', selectCategories);
@@ -16,7 +14,7 @@ const Home = () => {
 
   return (
     <div
-      className={`w-screen min-h-[calc(100vh-80px)]  overflow-y-auto bg-black  md:px-8 mt-14 `}
+      className={`w-screen min-h-[calc(100vh-80px)]  overflow-y-auto bg-black md:px-8 mt-14 relative `}
     >
 
       <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 text-white  md:place-items-baseline  pb-10 pt-10 gap-5 overflow-y-auto place-content-center  mx-auto">
@@ -28,7 +26,7 @@ const Home = () => {
 
               searchResults?.map((item, index) => {
 
-                return <VideoCard key={index} video={item} />;
+                return <VideoCard key={index} video={item} index={index} />;
               })
             }
           </>

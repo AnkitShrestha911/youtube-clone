@@ -1,11 +1,12 @@
 import { useContext, useEffect } from "react";
 import SearchCard from "../components/SearchCard";
 import { Context } from "../context/contextApi";
+import VideoCard from "../components/VideoCard";
 import Loader from "../components/Loader";
 import { useParams, Link } from "react-router-dom";
 
 const SearchResult = () => {
-  const { loading, searchText, searchCardResult, fetchSelectedCategoryData, HomeError, logOut, mobileMenu } = useContext(Context);
+  const { loading, searchText, searchCardResult, fetchSelectedCategoryData, HomeError, logOut } = useContext(Context);
   const { searchQuery } = useParams();
 
 
@@ -16,7 +17,7 @@ const SearchResult = () => {
 
 
   return (
-    <div className={`w-screen min-h-screen overflow-y-auto  bg-black `}>
+    <div className={`w-screen min-h-screen overflow-y-auto  bg-black  `}>
       {
         loading ? <Loader /> :
           <div className="w-full max-w-[1200px]   xl:pl-10 h-[calc(100%-100px)] mx-auto mt-[5rem] text-white  pb-10">
@@ -35,7 +36,7 @@ const SearchResult = () => {
                   </div>
                 </div>
                 :
-                (!loading && searchCardResult.length === 0) ?
+                (!loading && searchCardResult?.length === 0) ?
                   <div className="w-full  text-white flex flex-col">
                     <div className="mt-[10rem] w-full h-full text-center">
                       <h1 className="text-4xl">Result not found for {searchQuery}</h1>
@@ -44,6 +45,18 @@ const SearchResult = () => {
                   </div>
                   : null
             }
+
+
+            <div className="sm:hidden block mt-5">
+              {
+                searchCardResult?.map((video, index) => {
+
+                  return <VideoCard video={video} index={index} key={index} />
+
+                })
+              }
+            </div>
+
 
           </div>
 

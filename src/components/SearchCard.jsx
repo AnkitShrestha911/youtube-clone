@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import VideoCard from "./VideoCard";
+
 import { useContext } from "react";
 import { Context } from "../context/contextApi";
 import moment from "moment";
@@ -10,6 +10,8 @@ const SearchCard = ({ video }) => {
 
 
   const { viewHandler, hhmmss, fetchVideoCommentDetail, setCurrentVideo, fetchRelatedVideoDetail } = useContext(Context);
+
+
 
   const navigate = useNavigate();
 
@@ -85,9 +87,7 @@ const SearchCard = ({ video }) => {
         </div>
       </div>
 
-      <div className="sm:hidden block mt-5">
-        <VideoCard video={video} />
-      </div>
+
     </>
 
   );

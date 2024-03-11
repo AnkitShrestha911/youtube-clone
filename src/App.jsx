@@ -4,11 +4,14 @@ import SearchResult from './pages/SearchResult'
 import VideoPage from './pages/VideoPage'
 import NotFound from './pages/NotFound'
 import PrivateRoute from './components/PrivateRoute'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { Context } from './context/contextApi'
 
 
 
 const App = () => {
+
+  const { dotRef } = useContext(Context);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,6 +37,7 @@ const App = () => {
         </Route>
       </Routes>
 
+      <div ref={dotRef} className="block sm:hidden w-[3px] h-[3px] bg-red-700 fixed top-[35%] left-[50%] "></div>
     </div>
   )
 }
