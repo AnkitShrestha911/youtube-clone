@@ -36,8 +36,6 @@ const App = () => {
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
-
-      <div ref={dotRef} className="block sm:hidden w-[3px] h-[3px] bg-red-700 fixed top-[35%] left-[50%] opacity-0"></div>
     </div>
   )
 }
