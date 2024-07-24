@@ -26,7 +26,7 @@ export const AppContext = (props) => {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [loginDetail, setLoginDetail] = useState();
-    const dotRef = useRef(null);
+
 
 
     // setCommentsData((prev) => { return { ...prev } }) // this means we forcefully tell the react to re-render it
@@ -313,7 +313,7 @@ export const AppContext = (props) => {
                 setReadMore,
                 HomeError,
                 logOut,
-                dotRef
+
 
 
 
